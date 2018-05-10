@@ -1,7 +1,7 @@
-<h1>
-  <%= @note.title %>
-</h1>
-<%= p = @note.content %>
-<%= link_to "All notes", notes_path %>
-<%= link_to "Edit", edit_note_path(@note) %>
-<%= link_to "Delete", note_path(@note), method: :delete, data: { confirm: "Are you sure?"} %>
+<div class="wrapper_with_padding">
+  <h1><%= @note.title %></h1>
+  <p><%= @note.content %></p>
+  <button><%= link_to "All notes", notes_path %></button>
+  <button><%= link_to "Edit", edit_note_path(@note) %></button>
+  <button><%= link_to "Delete", note_path(@note), method: :delete, data: { confirm: "Are you sure?"} %></button>
+</div>
