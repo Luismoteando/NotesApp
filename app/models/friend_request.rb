@@ -13,7 +13,7 @@ class FriendRequest < ActiveRecord::Base
     user.friends << friend
     destroy
   end
-  
+
   private
 
   def not_self
