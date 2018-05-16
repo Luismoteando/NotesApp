@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :notes
   resources :friendships
 
+  get 'users/show'
   get 'welcome/index'
 
   authenticated :user do

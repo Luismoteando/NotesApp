@@ -1,22 +1,35 @@
 <div class="wrapper_with_padding">
   <h1>About Me</h1>
-  <p><b>E-mail:</b> <%= current_user.email %></p>
-  <button><%= link_to "Find Friends", users_path %></button>
-
+  <p><b>E-mail: </b><%= current_user.email %></p>
   <h2>My Friends</h2>
-  <ul>
+  <div class="clearfix" id="notes">
     <% for friendship in current_user.friendships %>
-    <li>
-      <%= friendship.friend.email %>
-      (<%= link_to "remove", friendship, :method => :delete %>)
-    </li>
+    <div class="note">
+      <p class="title">
+        <%= friendship.friend.email %>
+      </p></br>
+      <button>
+        <%= link_to "Remove", friendship, :method => :delete %>
+      </button>
+    </div>
     <% end %>
-  </ul>
-
+  </div>
   <h2>Users Who Have Added Me</h2>
-  <ul>
+  <div class="clearfix" id="notes">
     <% for user in current_user.inverse_friends %>
-    <li><%= user.email %></li>
+    <div class="note">
+      <p class="title">
+        <%= user.email %>
+      </p></br>
+      <button>
+        <%= link_to "Accept/Revoke" %>
+      </button>
+    </div>
     <% end %>
-  </ul>
+  </div>
+  <div id="note_show">
+    <div class="buttons">
+      <%= link_to "Find Friends", users_path, class: "button" %>
+    </div>
+  </div>
 </div>

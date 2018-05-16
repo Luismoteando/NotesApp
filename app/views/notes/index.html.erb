@@ -1,6 +1,7 @@
 <div class="wrapper_with_padding">
   <div class="clearfix" id="notes">
     <% unless @notes.blank? %>
+      <h1>My Notes</h1>    
       <% @notes.each do |note| %>
         <a href="<%= (url_for [note]) %>">
           <div class="note">
@@ -14,7 +15,7 @@
         </a>
       <% end %>
     <% else %>
-      <h2>Add a Note</h2>
+      <h2>Add a new note</h2>
       <p>It seems that you haven't created any note. Would you like to?</p>
       <button>
         <%= link_to "New Note", new_note_path %>

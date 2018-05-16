@@ -1,11 +1,21 @@
 <div class="wrapper_with_padding">
-  <% for user in @users %>
-  <div class="user">
-    <p>
-      <b><%= user.email %></b>
-      <button><%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %></button>
+  <h1>Find Friends</h1>
+  <div class="clearfix" id="notes">
+    <% for user in @users %>
+    <div class="note">
+      <p class="title">
+        <%= user.email %>
+      </p></br>
+      <button>
+        <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
+      </button>
       <div class="clear"></div>
-    </p>
+    </div>
+    <% end %>
   </div>
-  <% end %>
+  <div id="note_show">
+    <div class="buttons">
+      <%= link_to "Go Back", users_show_path, class: "button" %>
+    </div>
+  </div>
 </div>
