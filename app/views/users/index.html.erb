@@ -1,0 +1,11 @@
+<div class="wrapper_with_padding">
+  <% for user in @users %>
+  <div class="user">
+    <p>
+      <b><%= user.email %></b>
+      <button><%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %></button>
+      <div class="clear"></div>
+    </p>
+  </div>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+<div class="wrapper_with_padding">
+  <h1>About Me</h1>
+  <p><b>E-mail:</b> <%= current_user.email %></p>
+  <button><%= link_to "Find Friends", users_path %></button>
+
+  <h2>My Friends</h2>
+  <ul>
+    <% for friendship in current_user.friendships %>
+    <li>
+      <%= friendship.friend.email %>
+      (<%= link_to "remove", friendship, :method => :delete %>)
+    </li>
+    <% end %>
+  </ul>
+
+  <h2>Users Who Have Added Me</h2>
+  <ul>
+    <% for user in current_user.inverse_friends %>
+    <li><%= user.email %></li>
+    <% end %>
+  </ul>
+</div>
