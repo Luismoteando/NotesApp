@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_15_081047) do
+ActiveRecord::Schema.define(version: 2018_05_15_155209) do
+
+  create_table "collections", force: :cascade do |t|
+    t.string "title"
+    t.integer "note_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["note_id"], name: "index_collections_on_note_id"
+  end
 
   create_table "friend_requests", force: :cascade do |t|
     t.integer "user_id"
