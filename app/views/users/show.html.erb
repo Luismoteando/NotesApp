@@ -16,7 +16,7 @@
   </div>
   <h2>Users Who Have Added Me</h2>
   <div class="clearfix" id="notes">
-    <% for user in current_user.inverse_friends %>
+    <% for user in current_user.friend_requests %>
     <div class="note">
       <p class="title">
         <%= user.email %>

@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :users
+  resources :friendship
+  resources :friend_requests
   resources :notes
-  resources :friendships
 
-  get 'users/show'
+  get 'users/show'  
+  get 'friends/index'
+  get 'friends/destroy'
   get 'welcome/index'
 
   authenticated :user do
