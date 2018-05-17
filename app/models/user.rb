@@ -11,4 +11,11 @@ class User < ActiveRecord::Base
 
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+
+  enum role: [:user, :admin]
+  after_initialize :set_default_role, :if => :new_record?
+
+  def set_default_role
+    self.role ||= :user
+  end
 end
