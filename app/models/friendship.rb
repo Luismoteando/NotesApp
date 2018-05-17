@@ -1,4 +1,4 @@
-class Friendship < ApplicationRecord
+class Friendship < ActiveRecord::Base
   after_create :create_inverse_relationship
   after_destroy :destroy_inverse_relationship
 

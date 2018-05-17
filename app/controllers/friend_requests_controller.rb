@@ -1,13 +1,16 @@
 class FriendRequestsController < ApplicationController
-  before_action :set_friend_request, except: [:index, :create]
+  before_action :set_friend_request, except: [:index, :new, :create]
 
   def index
     @incoming = FriendRequest.where(friend: current_user)
     @outgoing = current_user.friend_requests
   end
 
+  def show
+  end
+
   def new
-    @friend_request = current_user.friend_requests.new
+    @friend_request = FriendRequest.new
   end
 
   def create
