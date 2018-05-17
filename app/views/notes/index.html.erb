@@ -1,7 +1,7 @@
 <div class="wrapper_with_padding">
   <div class="clearfix" id="notes">
     <% unless @notes.blank? %>
-      <h1>My Notes</h1>    
+      <h1>My Notes</h1>
       <% @notes.each do |note| %>
         <a href="<%= (url_for [note]) %>">
           <div class="note">

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :notes
+  resources :collections
   resources :friendships
 
   get 'users/show'
