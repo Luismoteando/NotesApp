@@ -23,3 +23,28 @@
     <% end %>
   </div>
 </div>
+<div class="wrapper_with_padding">
+  <div class="clearfix" id="collections">
+    <% unless @collections.blank? %>
+      <h1>My Collections</h1>
+      <% @collections.each do |collection| %>
+        <a href="<%= (url_for [collection]) %>">
+          <div class="collection">
+            <p class="title">
+              <%= collection.title %>
+            </p>
+            <p class="date">
+              <%= time_ago_in_words(collection.created_at) %>
+            </p>
+          </div>
+        </a>
+      <% end %>
+    <% else %>
+      <h2>Add a new collection</h2>
+      <p>It seems that you haven't created any collection. Would you like to?</p>
+      <button>
+        <%= link_to "New Collection", new_collection_path %>
+      </button>
+    <% end %>
+  </div>
+</div>

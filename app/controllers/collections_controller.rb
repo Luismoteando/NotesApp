@@ -1,5 +1,6 @@
 class CollectionsController < ApplicationController
   before_action :find_collection, only: [:show, :edit, :update, :destroy]
+  before_action :find_note, only: [:show]
 
   def index
     @collections = Collection.where(user_id: current_user)
@@ -10,6 +11,7 @@ class CollectionsController < ApplicationController
 
   def new
     @collection = current_user.collections.build
+    @notes = Note.where(user_id: current_user)
   end
 
   def create
@@ -41,6 +43,15 @@ class CollectionsController < ApplicationController
 
   def find_collection
     @collection = Collection.find(params[:id])
+
+  end
+
+  def find_note
+    @note = Note.find(params[:id])
+  end
+
+  def note_params
+    params.require(:note).permit(:title, :content, :image)
   end
 
   def collection_params
