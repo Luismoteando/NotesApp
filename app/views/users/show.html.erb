@@ -3,28 +3,36 @@
   <p><b>E-mail: </b><%= current_user.email %></p>
   <h2>My Friends</h2>
   <div class="clearfix" id="notes">
-    <% for friendship in current_user.friendships %>
-    <div class="note">
-      <p class="title">
-        <%= friendship.friend.email %>
-      </p></br>
-      <button>
-        <%= link_to "Remove", friendship, :method => :delete %>
-      </button>
-    </div>
+    <% for user in @users %>
+      <% for friend_request in current_user.friend_requests %>
+        <% if friend_request.friend_id == user.id %>
+          <div class="note">
+            <p class="title">
+              <%= user.email %>
+            </p></br>
+            <button>
+              <%= link_to "Cancel" %>
+              <!-- , friend_request_path(friend_id: user.id), :method "delete" %> -->
+            </button>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
   <h2>Users Who Have Added Me</h2>
   <div class="clearfix" id="notes">
-    <% for user in current_user.friend_requests %>
-    <div class="note">
-      <p class="title">
-        <%= user.email %>
-      </p></br>
-      <button>
-        <%= link_to "Accept/Revoke" %>
-      </button>
-    </div>
+    <% for friendship in current_user.friendships %>
+      <div class="note">
+        <p class="title">
+          <%= friendship.friend.email %>
+        </p></br>
+        <button>
+          <%= link_to "Accept", friend_request_path(friend_id: user.id), method: "put" %>
+        </button>
+        <button>
+          <%= link_to "Revoke", friend_request_path(friend_id: user.id), method: "delete" %>
+        </button>
+      </div>
     <% end %>
   </div>
   <div id="note_show">

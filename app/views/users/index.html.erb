@@ -7,7 +7,7 @@
         <%= user.email %>
       </p></br>
       <button>
-        <%= link_to "Add Friend", new_friend_request_path %>
+        <%= link_to "Add Friend", friend_requests_path(friend_id: user.id), method: "post" %>
       </button>
       <div class="clear"></div>
     </div>
