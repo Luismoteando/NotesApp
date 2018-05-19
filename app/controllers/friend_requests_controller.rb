@@ -26,12 +26,12 @@ class FriendRequestsController < ApplicationController
 
   def update
     @friend_request.accept
-    head :no_content
+    redirect_to request.referrer
   end
 
   def destroy
     @friend_request.destroy
-    head :no_content
+    redirect_to request.referrer
   end
 
   private
