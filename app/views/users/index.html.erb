@@ -6,9 +6,10 @@
       <p class="title">
         <%= user.email %>
       </p></br>
-      <button>
-        <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
-      </button>
+      <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post %>
+      <p>
+      <%= link_to "New Administrator" @user.role = (admin) %>
+      <!--<%= link_to "New Administrator", @user.update_attributes(params[:user], :as => :admin)%>-->
       <div class="clear"></div>
     </div>
     <% end %>
