@@ -2,15 +2,15 @@
   <h1>Find Friends</h1>
   <div class="clearfix" id="notes">
     <% for user in @users %>
-    <div class="note">
-      <p class="title">
-        <%= user.email %>
-      </p></br>
-      <button>
-        <%= link_to "Add Friend", friend_requests_path(friend_id: user.id), method: "post" %>
-      </button>
-      <div class="clear"></div>
-    </div>
+      <div class="note">
+        <p class="title">
+          <%= user.email %>
+        </p></br>
+        <button>
+          <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
+        </button>
+        <div class="clear"></div>
+      </div>
     <% end %>
   </div>
   <div id="note_show">

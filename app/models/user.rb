@@ -12,7 +12,9 @@ class User < ActiveRecord::Base
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
 
+  cattr_accessor :current_user
+
   def remove_friend(friend)
-    current_user.friends.destroy(friend)
+    User.current_user.friends.destroy(friend)
   end
 end

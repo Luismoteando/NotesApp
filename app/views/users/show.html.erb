@@ -4,6 +4,23 @@
   <h2>My Friends</h2>
   <div class="clearfix" id="notes">
     <% for user in @users %>
+      <% for friend in @friends %>
+        <% if friend.id == user.id %>
+          <div class="note">
+            <p class="title">
+              <%= user.email %>
+            </p></br>
+            <button>
+              <%= link_to "Remove", friends_destroy_path(id: friend.id), method: "get" %>
+            </button>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <h3>Pending Friends</h3>
+  <div class="clearfix" id="notes">
+    <% for user in @users %>
       <% for outgoing in @outgoing %>
         <% if outgoing.friend_id == user.id %>
           <div class="note">
@@ -11,14 +28,14 @@
               <%= user.email %>
             </p></br>
             <button>
-              <%= link_to "Cancel", friend_request_path(id: user.id), method: "delete" %>
+              <%= link_to "Cancel", friend_request_path(id: outgoing.id), method: "delete" %>
             </button>
           </div>
         <% end %>
       <% end %>
     <% end %>
   </div>
-  <h2>Users Who Have Added Me</h2>
+  <h3>Friend Requests</h3>
   <div class="clearfix" id="notes">
     <% for user in @users %>
       <% for incoming in @incoming %>
@@ -28,10 +45,10 @@
           <%= user.email %>
         </p></br>
         <button>
-          <%= link_to "Accept", friend_request_path(friend_id: user.id), method: "put" %>
+          <%= link_to "Accept", friend_request_path(id: incoming.id), method: "put" %>
         </button></br></br>
         <button>
-          <%= link_to "Revoke", friend_request_path(friend_id: user.id), method: "delete" %>
+          <%= link_to "Revoke", friend_request_path(id: incoming.id), method: "delete" %>
         </button>
       </div>
       <% end %>

@@ -4,8 +4,9 @@ class UsersController < ApplicationController
   end
 
   def show
-      @users = User.all
-      @incoming = FriendRequest.where(friend: current_user)
-      @outgoing = current_user.friend_requests
+    @users = User.all
+    @friends = current_user.friends
+    @incoming = FriendRequest.where(friend: current_user)
+    @outgoing = current_user.friend_requests
   end
 end
