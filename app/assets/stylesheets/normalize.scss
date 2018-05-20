@@ -138,6 +138,26 @@ h1 {
 }
 
 /**
+ * Address variable `h2` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+
+h2 {
+  font-size: 1.625em;
+  margin: 0.67em 0;
+}
+
+/**
+ * Address variable `h3` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+
+h3 {
+  font-size: 1.25em;
+  margin: 0.67em 0;
+}
+
+/**
  * Address styling not present in IE 8/9.
  */
 

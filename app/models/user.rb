@@ -7,9 +7,15 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :collections
 
-  has_many :friendships
-  has_many :friends, :through => :friendships
+  has_many :friend_requests, dependent: :destroy
+  has_many :pending_friends, through: :friend_requests, source: :friend
 
-  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
-  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships
+
+  cattr_accessor :current_user
+
+  def remove_friend(friend)
+    User.current_user.friends.destroy(friend)
+  end
 end
