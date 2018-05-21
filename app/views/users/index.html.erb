@@ -9,6 +9,10 @@
         <button>
           <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
         </button>
+        <button></br></br>
+        <%= link_to "New Administrator" @user.role = (admin) %>
+        <!--<%= link_to "New Administrator", @user.update_attributes(params[:user], :as => :admin)%>-->
+        </button>
         <div class="clear"></div>
       </div>
     <% end %>
