@@ -1,63 +1,96 @@
 <div class="wrapper_with_padding">
   <h1>About Me</h1>
-  <p><b>E-mail: </b><%= current_user.email %></p>
+  <p><b>E-mail: </b><%= @user.email %></p>
   <h2>My Friends</h2>
-  <div class="clearfix" id="notes">
+  <div class="clearfix" id="users">
     <% for user in @users %>
-      <% for friend in @friends %>
-        <% if friend.id == user.id %>
-          <div class="note">
-            <p class="title">
-              <%= user.email %>
-            </p></br>
-            <button>
-              <%= link_to "Remove", friends_destroy_path(id: friend.id), method: "get" %>
-            </button>
-          </div>
-        <% end %>
+    <% for friend in @friends %>
+    <% if friend.id == user.id %>
+    <div class="user">
+      <p class="title">
+        <%= link_to user.email, user_path(id: friend.id), method: "get" %>
+      </p></br>
+      <% if @user.id == current_user.id %>
+      <button>
+        <%= link_to "Remove", friends_destroy_path(id: friend.id), method: "get" %>
+      </button>
+      <% else %>
+      <button>
+        <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
+      </button>
       <% end %>
+    </div>
+    <% end %>
+    <% end %>
     <% end %>
   </div>
+  <% if @user.id == current_user.id %>
   <h3>Pending Friends</h3>
-  <div class="clearfix" id="notes">
+  <div class="clearfix" id="users">
     <% for user in @users %>
-      <% for outgoing in @outgoing %>
-        <% if outgoing.friend_id == user.id %>
-          <div class="note">
-            <p class="title">
-              <%= user.email %>
-            </p></br>
-            <button>
-              <%= link_to "Cancel", friend_request_path(id: outgoing.id), method: "delete" %>
-            </button>
-          </div>
-        <% end %>
-      <% end %>
+    <% for outgoing in @outgoing %>
+    <% if outgoing.friend_id == user.id %>
+    <div class="user">
+      <p class="title">
+        <%= link_to user.email, user_path(id: outgoing.id), method: "get" %>
+      </p></br>
+      <button>
+        <%= link_to "Cancel", friend_request_path(id: outgoing.id), method: "delete" %>
+      </button>
+    </div>
+    <% end %>
+    <% end %>
     <% end %>
   </div>
   <h3>Friend Requests</h3>
-  <div class="clearfix" id="notes">
+  <div class="clearfix" id="users">
     <% for user in @users %>
-      <% for incoming in @incoming %>
-        <% if incoming.user_id == user.id %>
-      <div class="note">
-        <p class="title">
-          <%= user.email %>
-        </p></br>
-        <button>
-          <%= link_to "Accept", friend_request_path(id: incoming.id), method: "put" %>
-        </button></br></br>
-        <button>
-          <%= link_to "Revoke", friend_request_path(id: incoming.id), method: "delete" %>
-        </button>
-      </div>
-      <% end %>
+    <% for incoming in @incoming %>
+    <% if incoming.user_id == user.id %>
+    <div class="user">
+      <p class="title">
+        <%= link_to user.email, user_path(id: incoming.id), method: "get" %>
+      </p></br>
+      <button>
+        <%= link_to "Accept", friend_request_path(id: incoming.id), method: "put" %>
+      </button></br></br>
+      <button>
+        <%= link_to "Revoke", friend_request_path(id: incoming.id), method: "delete" %>
+      </button>
+    </div>
     <% end %>
-  <% end %>
+    <% end %>
+    <% end %>
   </div>
-  <div id="note_show">
+  <div id="user_show">
     <div class="buttons">
       <%= link_to "Find Friends", users_path, class: "button" %>
     </div>
   </div>
+  <% else %>
+  <div class="clearfix" id="notes">
+    <h2>My Notes</h2>
+    <% unless @notes.blank? %>
+    <% @user.notes.each do |note| %>
+    <a href="<%= (url_for [note]) %>">
+      <div class="note">
+        <p class="title">
+          <%= note.title %>
+        </p>
+        <p class="date">
+          <%= time_ago_in_words(note.created_at) %>
+        </p>
+      </div>
+    </a>
+    <% end %>
+    <% else %>
+    <p>It seems that this user hasn't created any note.</p>
+    <% end %>
+  </div>
+  <div id="user_show">
+    <div class="buttons">
+      <%= link_to "Go Back", request.referrer, class: "button" %>
+    </div>
+  </div>
+  <% end %>
 </div>

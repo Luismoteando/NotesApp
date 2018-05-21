@@ -1,10 +1,10 @@
 <div class="wrapper_with_padding">
   <h1>Find Friends</h1>
-  <div class="clearfix" id="notes">
+  <div class="clearfix" id="users">
     <% for user in @users %>
-      <div class="note">
+      <div class="user">
         <p class="title">
-          <%= user.email %>
+          <%= link_to user.email, user_path(id: user.id), method: "get" %>
         </p></br>
         <button>
           <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
@@ -13,9 +13,9 @@
       </div>
     <% end %>
   </div>
-  <div id="note_show">
+  <div id="user_show">
     <div class="buttons">
-      <%= link_to "Go Back", users_show_path, class: "button" %>
+      <%= link_to "Go Back", user_path(id: current_user.id), method: "get", class: "button" %>
     </div>
   </div>
 </div>
