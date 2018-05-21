@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_05_17_104831) do
 
   create_table "collections", force: :cascade do |t|
@@ -18,8 +17,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_104831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-=======
-ActiveRecord::Schema.define(version: 2018_05_17_092727) do
+  end
 
   create_table "friend_requests", force: :cascade do |t|
     t.integer "user_id"
@@ -28,7 +26,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_092727) do
     t.datetime "updated_at", null: false
     t.index ["friend_id"], name: "index_friend_requests_on_friend_id"
     t.index ["user_id"], name: "index_friend_requests_on_user_id"
->>>>>>> master
   end
 
   create_table "friendships", force: :cascade do |t|
