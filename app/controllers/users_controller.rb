@@ -12,6 +12,21 @@ class UsersController < ApplicationController
     @outgoing = @user.friend_requests
   end
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      redirect_to users_path
+    end
+  end
+
   private
 
   def set_user
