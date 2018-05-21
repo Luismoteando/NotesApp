@@ -9,9 +9,11 @@
     <% if @note.image.exists? %>
     <%= image_tag @note.image.url(:medium) %><br/>
     <% end %>
+    <% if @note.user_id == current_user.id %>
     <div class="buttons">
       <%= link_to "Edit", edit_note_path(@note), class: "button" %>
       <%= link_to "Delete", note_path(@note), method: :delete, data: { confirm: "Are you sure?" }, class: "button" %>
     </div>
+    <% end %>
   </div>
 </div>

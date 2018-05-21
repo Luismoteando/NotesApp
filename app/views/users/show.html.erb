@@ -70,7 +70,7 @@
   <% else %>
   <div class="clearfix" id="notes">
     <h2>My Notes</h2>
-    <% unless @notes.blank? %>
+    <% unless @user.notes.blank? %>
     <% @user.notes.each do |note| %>
     <a href="<%= (url_for [note]) %>">
       <div class="note">
