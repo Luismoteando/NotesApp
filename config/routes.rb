@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :friendship
   resources :friend_requests
   resources :notes
+  resources :collections
 
   get 'users/show'
   get 'friends/index'
