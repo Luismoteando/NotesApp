@@ -39,20 +39,22 @@ body {
 }
 
 button, .button {
-	border: none;
+	border: 5px solid $orange;
 	outline: none;
-	background: $orange;
+	background: transparent;
 	padding: 1rem 3.5rem;
 	border-radius: 2rem;
 	a {
-		color: white;
+		color: $orange;
 		text-decoration: none;
+		@include bold_font
 	}
 }
 
 .button {
-	color: white;
+	color: $orange;
 	margin: 2rem 0;
+	@include bold_font
 }
 
 a {
