@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :users
+  devise_for :users, :path_prefix => 'my'
+  resources :users do
+    member do
+      put "promote", to: "users#promote"
+    end
+  end
   resources :friendship
   resources :friend_requests
   resources :notes
@@ -10,6 +14,7 @@ Rails.application.routes.draw do
   get 'friends/index'
   get 'friends/destroy'
   get 'welcome/index'
+
 
   authenticated :user do
     root 'notes#index', as: "authenticated_root" #notes controller, index action

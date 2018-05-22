@@ -1,29 +1,40 @@
 <div class="wrapper_with_padding">
-  <h1>Find Friends</h1>
+  <%if current_user.admin?%>
+  <h1>Administrate Users</h1></br>
+  <%= link_to "New User", new_user_path, method: "get", class: "button" %></br></br>
+  <% else %>
+  <h1>Find Friends</h1></br>
+  <% end %>
   <div class="clearfix" id="users">
     <% for user in @users %>
     <div class="user">
       <p class="title">
         <%= link_to user.email, user_path(id: user.id), method: "get" %>
       </p></br>
+      <%if current_user.admin?%>
+      <button>
+        <%= link_to "Edit", edit_user_path(id: user.id), method: "get" %>
+      </button></br></br>
+      <button>
+        <%= link_to "Delete", user_path(id: user.id), method: "delete" %>
+      </button></br></br>
+      <button>
+        <%= link_to "Promote", promote_user_path(id: user.id), method: "put" %>
+      </button>
+      <% else %></br></br>
       <button>
         <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
       </button>
-      <%if current_user.admin?%>
-      <%= link_to "Delete user", user_path(id: user.id), method: "delete" %>
       <% end %>
-      <%-#= link_to "New Administrator" @user.role = (admin) %>
-      <%-#= link_to "New Administrator", @user.update_attributes(params[:user], :as => :admin) %>
       <div class="clear"></div>
     </div>
     <% end %>
   </div>
+  <%if !current_user.admin?%>
   <div id="user_show">
     <div class="buttons">
-      <%if current_user.admin?%>
-      <%= link_to "Create new user", users_path(), method: "post", class: "button" %>
-      <% end %>
       <%= link_to "Go Back", user_path(id: current_user.id), method: "get", class: "button" %>
     </div>
   </div>
+  <% end %>
 </div>

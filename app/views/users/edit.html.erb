@@ -1,0 +1,16 @@
+<div class="wrapper_with_padding">
+  <h2>Edit User</h2>
+  <%= simple_form_for @user do |f| %>
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
+    <%= f.input :password_confirmation, required: false %>
+  </div>
+  <%= f.button :submit, "Update", class: "button" %>
+  <% end %>
+  <div id="user_show">
+    <div class="buttons">
+      <%= link_to "Go Back", :back, class: "button" %>
+    </div>
+  </div>
+</div>
