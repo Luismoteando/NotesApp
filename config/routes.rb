@@ -7,8 +7,12 @@ Rails.application.routes.draw do
   end
   resources :friendship
   resources :friend_requests
-  resources :notes
-  resources :collections
+  resources :notes, param: :note_id
+  resources :collections, param: :collection_id do
+    member do
+      put "fill", to: "collections#fill"
+    end
+  end
 
   get 'users/show'
   get 'friends/index'

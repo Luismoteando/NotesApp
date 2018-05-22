@@ -3,7 +3,26 @@
     <h1 class="title">
       <%= @collection.title %>
     </h1>
-    
+  </div>
+  <div class="clearfix" id="notes">
+    <% unless @notes.blank? %>
+    <% @notes.each do |note| %>
+    <a href="<%= (url_for [note]) %>">
+      <div class="note">
+        <p class="title">
+          <%= note.title %>
+        </p>
+        <p class="date">
+          <%= time_ago_in_words(note.created_at) %>
+        </p>
+      </div>
+    </a>
+    <% end %>
+    <% else %>
+    <p>It seems that you haven't added any note. Would you like to?</p>
+    <% end %>
+  </div>
+  <div id="collection_show">
     <div class="buttons">
       <%= link_to "Edit", edit_collection_path(@collection), class: "button" %>
       <%= link_to "Delete", collection_path(@collection), method: :delete, data: { confirm: "Are you sure?" }, class: "button" %>

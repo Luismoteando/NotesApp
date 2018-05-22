@@ -1,6 +1,5 @@
 class CollectionsController < ApplicationController
-  before_action :find_collection, only: [:show, :edit, :update, :destroy]
-
+  before_action :find_collection, only: [:show, :edit, :update, :fill, :destroy]
 
   def index
     @notes = Note.where(user_id: current_user)
@@ -8,11 +7,11 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    @notes = Note.where(collection_id: :collection_id)
   end
 
   def new
     @collection = current_user.collections.build
-
   end
 
   def create
@@ -25,6 +24,7 @@ class CollectionsController < ApplicationController
   end
 
   def edit
+    @notes = Note.where(user_id: current_user)
   end
 
   def update
@@ -35,6 +35,12 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def fill
+    @note = Note.find(params[:note_id])
+    @note.collection_id = @collection.id
+    @note.save
+  end
+
   def destroy
     @collection.destroy
     redirect_to collections_path
@@ -43,11 +49,8 @@ class CollectionsController < ApplicationController
   private
 
   def find_collection
-    @collection = Collection.find(params[:id])
-
+    @collection = Collection.find(params[:collection_id])
   end
-
-
 
   def collection_params
     params.require(:collection).permit(:title)
