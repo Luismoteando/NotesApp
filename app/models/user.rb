@@ -23,10 +23,10 @@ class User < ActiveRecord::Base
   end
 
   def set_default_role
-    self.role ||= :user
+    self.role = "user"
   end
 
   def set_admin_role
-    self.role ||= :admin
+    self.role = "admin"
   end
 end

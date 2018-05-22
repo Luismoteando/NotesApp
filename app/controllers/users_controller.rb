@@ -44,6 +44,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def unpromote
+    @user.set_default_role
+    if @user.save
+      redirect_to request.referrer
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
     if @user.destroy

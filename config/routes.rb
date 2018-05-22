@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       put "promote", to: "users#promote"
+      put "unpromote", to: "users#unpromote"
     end
   end
   resources :friendship

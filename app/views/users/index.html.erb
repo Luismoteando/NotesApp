@@ -18,9 +18,15 @@
       <button>
         <%= link_to "Delete", user_path(id: user.id), method: "delete" %>
       </button></br></br>
+      <% if !user.admin? %>
       <button>
         <%= link_to "Promote", promote_user_path(id: user.id), method: "put" %>
       </button>
+      <% else %>
+      <button>
+        <%= link_to "Unpromote", unpromote_user_path(id: user.id), method: "put" %>
+      </button>
+      <% end %>
       <% else %></br></br>
       <button>
         <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
