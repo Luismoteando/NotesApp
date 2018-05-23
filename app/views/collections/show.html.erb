@@ -22,7 +22,7 @@
     <p>It seems that you haven't added any note. Would you like to?</p>
     <% end %>
   </div>
-  <% if @note.user_id == current_user.id || current_user.admin? %>
+  <% if @collection.user_id == current_user.id || current_user.admin? %>
     <div id="collection_show">
       <div class="buttons">
         <%= link_to "Edit", edit_collection_path(@collection), class: "button" %>

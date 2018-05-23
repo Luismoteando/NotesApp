@@ -7,7 +7,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @notes = Note.where(collection_id: @collection.id)
+    @notes = Note.where(user_id: current_user, collection_id: @collection.id)
   end
 
   def new
