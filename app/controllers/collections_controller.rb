@@ -17,15 +17,14 @@ class CollectionsController < ApplicationController
   def create
       @collection = current_user.collections.build(collection_params)
       if @collection.save
-        @notes = Note.where(user_id: current_user)
-        render 'edit'
+        redirect_to edit_collection_path(collection_id: @collection.id)
       else
         render 'new'
       end
   end
 
   def edit
-    @notes = Note.where(user_id: current_user)
+      @notes = Note.where(user_id: current_user)
   end
 
   def update
