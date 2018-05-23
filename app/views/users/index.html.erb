@@ -5,8 +5,10 @@
   <% else %>
   <h1>Find Friends</h1></br>
   <% end %>
+
   <div class="clearfix" id="users">
     <% for user in @users %>
+    <% if user.id != current_user.id %>
     <div class="user">
       <p class="title">
         <%= link_to user.email, user_path(id: user.id), method: "get" %>
@@ -35,7 +37,9 @@
       <div class="clear"></div>
     </div>
     <% end %>
+    <% end %>
   </div>
+
   <%if !current_user.admin?%>
   <div id="user_show">
     <div class="buttons">
