@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :collections, param: :collection_id do
     member do
       put "fill", to: "collections#fill"
+      put "unfill", to: "collections#unfill"
     end
   end
 
