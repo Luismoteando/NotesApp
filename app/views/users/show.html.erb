@@ -87,6 +87,25 @@
     <p>It seems that this user hasn't created any note.</p>
     <% end %>
   </div>
+  <div class="clearfix" id="collections">
+    <h2>My Collections</h2>
+    <% unless @user.collections.blank? %>
+    <% @user.collections.each do |collection| %>
+    <a href="<%= (url_for [collection]) %>">
+      <div class="collection">
+        <p class="title">
+          <%= collection.title %>
+        </p>
+        <p class="date">
+          <%= time_ago_in_words(collection.created_at) %>
+        </p>
+      </div>
+    </a>
+    <% end %>
+    <% else %>
+    <p>It seems that this user hasn't created any note.</p>
+    <% end %>
+  </div>
   <div id="user_show">
     <div class="buttons">
       <%= link_to "Go Back", request.referrer, class: "button" %>

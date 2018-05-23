@@ -29,7 +29,7 @@
         <%= link_to "Unpromote", unpromote_user_path(id: user.id), method: "put" %>
       </button>
       <% end %>
-      <% else %></br></br>
+      <% else %>
       <button>
         <%= link_to "Add", friend_requests_path(friend_id: user.id), method: "post" %>
       </button>

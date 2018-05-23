@@ -7,6 +7,7 @@ class NotesController < ApplicationController
   end
 
   def show
+    @collections = Collection.where(user_id: current_user)
   end
 
   def new
