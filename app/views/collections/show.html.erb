@@ -22,11 +22,12 @@
     <p>It seems that you haven't added any note. Would you like to?</p>
     <% end %>
   </div>
-  <% if @collection.user_id == current_user.id || current_user.admin? %>
+  <% if @collection.users.include?(current_user) || current_user.admin? %>
     <div id="collection_show">
       <div class="buttons">
         <%= link_to "Edit", edit_collection_path(@collection), class: "button" %>
-        <%= link_to "Delete", collection_path(@collection), method: :delete, data: { confirm: "Are you sure?" }, class: "button" %>
+        <%= link_to "Delete", collection_path(@collection), method: "delete", data: { confirm: "Are you sure?" }, class: "button" %>
+        <%= link_to "Share", index_share_collection_path(@collection), method: "get", class: "button" %>
       </div>
     </div>
   <% end %>

@@ -1,13 +1,14 @@
 class CollectionsController < ApplicationController
-  before_action :find_collection, only: [:show, :edit, :update, :fill, :unfill, :destroy]
+  before_action :find_collection, only: [:show, :edit, :update, :fill, :unfill, :destroy, :share, :index_share]
+  before_action :find_user, only: [:share]
 
   def index
-    @notes = Note.where(user_id: current_user)
-    @collections = Collection.where(user_id: current_user)
+    @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user)))
+    @collections = Collection.where(id: (UserCollection.select(:collection_id).where(user_id: current_user)))
   end
 
   def show
-    @notes = Note.where(user_id: current_user, collection_id: @collection.id)
+    @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user)), collection_id: @collection.id)
   end
 
   def new
@@ -16,6 +17,7 @@ class CollectionsController < ApplicationController
 
   def create
       @collection = current_user.collections.build(collection_params)
+      @collection.users << current_user
       if @collection.save
         redirect_to edit_collection_path(collection_id: @collection.id)
       else
@@ -24,7 +26,7 @@ class CollectionsController < ApplicationController
   end
 
   def edit
-      @notes = Note.where(user_id: current_user)
+      @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user)))
   end
 
   def update
@@ -56,10 +58,24 @@ class CollectionsController < ApplicationController
     redirect_to notes_path
   end
 
+  def index_share
+    @users = User.all
+    @friends = current_user.friends
+  end
+
+  def share
+    @collection.users << @user
+    redirect_to request.referrer
+  end
+
   private
 
   def find_collection
     @collection = Collection.find(params[:collection_id])
+  end
+
+  def find_user
+    @user = User.find(params[:id])
   end
 
   def collection_params

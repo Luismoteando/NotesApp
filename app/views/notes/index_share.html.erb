@@ -1,0 +1,27 @@
+<div class="wrapper_with_padding">
+  <h1>Share Note</h1>
+  <div class="clearfix" id="users">
+    <% for user in @users %>
+      <% for friend in @friends %>
+        <% if friend.id == user.id && !friend.notes.include?(@note) %>
+          <div class="user">
+            <p class="title">
+              <%= link_to user.email, user_path(id: friend.id), method: "get" %>
+            </p></br>
+            <button>
+              <%= link_to "Share", note_share_path(note_id: @note.id, id: friend.id), method: "put" %>
+            </button>
+          </div>
+        <% else %>
+          <p>It seems that there is no one to share your note with.</p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="user_show">
+    <div class="buttons">
+      <%= link_to "Done", note_path(@note), method: "get", class: "button" %>
+    </div>
+  </div>
+</div>

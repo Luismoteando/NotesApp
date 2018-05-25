@@ -1,0 +1,27 @@
+<div class="wrapper_with_padding">
+  <h1>Share Collection</h1>
+  <div class="clearfix" id="users">
+    <% for user in @users %>
+      <% for friend in @friends %>
+        <% if friend.id == user.id && !friend.collections.include?(@collection) %>
+          <div class="user">
+            <p class="title">
+              <%= link_to user.email, user_path(id: friend.id), method: "get" %>
+            </p></br>
+            <button>
+              <%= link_to "Share", share_collection_path(collection_id: @collection.id, id: friend.id), method: "put" %>
+            </button>
+          </div>
+        <% else %>
+          <p>It seems that there is no one to share your collection with.</p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="user_show">
+    <div class="buttons">
+      <%= link_to "Done", collection_path(@collection), method: "get", class: "button" %>
+    </div>
+  </div>
+</div>

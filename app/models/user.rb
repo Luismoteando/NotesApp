@@ -4,8 +4,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :notes
-  has_many :collections
+  has_many :user_notes
+  has_many :notes, through: :user_notes
+
+  has_many :user_collections
+  has_many :collections, through: :user_collections
 
   has_many :friend_requests, dependent: :destroy
   has_many :pending_friends, through: :friend_requests, source: :friend

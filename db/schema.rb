@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_22_153443) do
+ActiveRecord::Schema.define(version: 2018_05_25_080550) do
 
   create_table "collections", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
   end
 
   create_table "friend_requests", force: :cascade do |t|
@@ -42,12 +41,29 @@ ActiveRecord::Schema.define(version: 2018_05_22_153443) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.string "image_file_name"
     t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.integer "collection_id"
+  end
+
+  create_table "user_collections", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "collection_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_user_collections_on_collection_id"
+    t.index ["user_id"], name: "index_user_collections_on_user_id"
+  end
+
+  create_table "user_notes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "note_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["note_id"], name: "index_user_notes_on_note_id"
+    t.index ["user_id"], name: "index_user_notes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

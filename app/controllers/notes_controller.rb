@@ -1,9 +1,10 @@
 class NotesController < ApplicationController
-  before_action :find_note, only: [:show, :edit, :update, :destroy]
+  before_action :find_note, only: [:show, :edit, :update, :destroy, :share]
+  before_action :find_user, only: [:share]
 
   def index
-    @notes = Note.where(user_id: current_user)
-    @collections = Collection.where(user_id: current_user)
+    @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user)))
+    @collections = Collection.where(id: (UserCollection.select(:collection_id).where(user_id: current_user)))
   end
 
   def show
@@ -15,12 +16,13 @@ class NotesController < ApplicationController
   end
 
   def create
-      @note = current_user.notes.build(note_params)
-      if @note.save
-        redirect_to @note
-      else
-        render 'new'
-      end
+    @note = current_user.notes.build(note_params)
+    @note.users << current_user
+    if @note.save
+      redirect_to @note
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -39,10 +41,25 @@ class NotesController < ApplicationController
     redirect_to notes_path
   end
 
+  def index_share
+    @users = User.all
+    @friends = current_user.friends
+    @note = Note.find(params[:note_note_id])
+  end
+
+  def share
+    @note.users << @user
+    redirect_to request.referrer
+  end
+
   private
 
   def find_note
     @note = Note.find(params[:note_id])
+  end
+
+  def find_user
+    @user = User.find(params[:id])
   end
 
   def note_params
