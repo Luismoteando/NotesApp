@@ -10,7 +10,7 @@
         <p class="title">
           <%= note.title %>
         </p></br>
-        <% if note.collection_id != @collection.id %>
+        <% if !note.collections.include?(@collection) %>
         <button>
           <%= link_to "Add", fill_collection_path(collection_id: @collection.id, note_id: note.id), method: "put" %>
         </button></br></br>

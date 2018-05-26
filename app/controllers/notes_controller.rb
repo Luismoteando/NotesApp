@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
-  before_action :find_note, only: [:show, :edit, :update, :destroy, :share]
-  before_action :find_user, only: [:share]
+  before_action :set_note, only: [:show, :edit, :update, :destroy, :share]
+  before_action :set_user, only: [:share]
 
   def index
     @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user)))
@@ -54,11 +54,11 @@ class NotesController < ApplicationController
 
   private
 
-  def find_note
+  def set_note
     @note = Note.find(params[:note_id])
   end
 
-  def find_user
+  def set_user
     @user = User.find(params[:id])
   end
 
