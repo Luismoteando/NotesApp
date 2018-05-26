@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: [:show, :edit, :update, :destroy, :share]
+  before_action :set_note, except: [:index, :new, :create, :index_share]
   before_action :set_user, only: [:share]
 
   def index

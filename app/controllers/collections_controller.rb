@@ -1,6 +1,6 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :fill, :unfill, :destroy, :share, :index_share]
-  before_action :set_user, only: [:share]
+  before_action :set_collection, except: [:index, :new, :create]
+  before_action :set_user, only: :share
 
   def index
     @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user)))
@@ -8,7 +8,7 @@ class CollectionsController < ApplicationController
   end
 
   def show
-    @notes = Note.where(id: (UserNote.select(:note_id).where(user_id: current_user))).where(id: (NoteCollection.select(:note_id).where(collection_id: @collection.id)))
+    @notes = Note.where(id: (NoteCollection.select(:note_id).where(collection_id: @collection.id)))
   end
 
   def new
@@ -65,6 +65,9 @@ class CollectionsController < ApplicationController
 
   def share
     @collection.users << @user
+    @collection.notes.each do |note|
+      @user.notes << note
+    end
     redirect_to request.referrer
   end
 
